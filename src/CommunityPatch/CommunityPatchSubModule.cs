@@ -204,7 +204,7 @@ namespace CommunityPatch {
           ActivePatches[patch.GetType()] = patch;
 
         ShowMessage($"{(patchApplied ? "Applied" : "Skipped")} Patch: {patch.GetType().Name}");
-      }
+    }
     }
 
     private static LinkedList<IPatch> _patches;
