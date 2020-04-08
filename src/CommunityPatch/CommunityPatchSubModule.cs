@@ -27,7 +27,7 @@ namespace CommunityPatch {
     internal static readonly LinkedList<Exception> RecordedUnhandledExceptions
       = new LinkedList<Exception>();
 
-    internal static readonly OptionsFile Options = new OptionsFile(nameof(CommunityPatch) + ".txt");
+    internal static readonly OptionsStore Options = new OptionsFile(nameof(CommunityPatch) + ".txt");
 
     [PublicAPI]
     internal static CampaignGameStarter CampaignGameStarter;
@@ -208,7 +208,7 @@ namespace CommunityPatch {
           ActivePatches[patch.GetType()] = patch;
 
         ShowMessage($"{(patchApplied ? "Applied" : "Skipped")} Patch: {patch.GetType().Name}");
-      }
+    }
     }
 
     private static LinkedList<IPatch> _patches;
