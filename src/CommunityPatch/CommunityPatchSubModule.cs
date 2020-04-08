@@ -32,15 +32,11 @@ namespace CommunityPatch {
     [PublicAPI]
     internal static CampaignGameStarter CampaignGameStarter;
 
-    internal static bool DisableIntroVideo {
-      get => Options.Get<bool>(nameof(DisableIntroVideo));
-      set => Options.Set(nameof(DisableIntroVideo), value);
-    }
+    internal static readonly Option<bool> DisableIntroVideo
+      = Options.GetOption<bool>(nameof(DisableIntroVideo));
 
-    internal static bool RecordFirstChanceExceptions {
-      get => Options.Get<bool>(nameof(RecordFirstChanceExceptions));
-      set => Options.Set(nameof(RecordFirstChanceExceptions), value);
-    }
+    internal static readonly Option<bool> RecordFirstChanceExceptions
+      = Options.GetOption<bool>(nameof(RecordFirstChanceExceptions));
 
     public override void BeginGameStart(Game game)
       => base.BeginGameStart(game);
@@ -144,12 +140,12 @@ namespace CommunityPatch {
           var selected = (string) list[0].Identifier;
           switch (selected) {
             case nameof(DisableIntroVideo):
-              DisableIntroVideo = !DisableIntroVideo;
+              DisableIntroVideo.Set(!DisableIntroVideo);
               ShowMessage($"Intro Videos: {(DisableIntroVideo ? "Disabled" : "Enabled")}.");
               Options.Save();
               break;
             case nameof(RecordFirstChanceExceptions):
-              RecordFirstChanceExceptions = !RecordFirstChanceExceptions;
+              RecordFirstChanceExceptions.Set(!RecordFirstChanceExceptions);
               ShowMessage($"Record FCEs: {(RecordFirstChanceExceptions ? "Enabled" : "Disabled")}.");
               Options.Save();
               break;
@@ -175,7 +171,7 @@ namespace CommunityPatch {
       base.OnGameInitializationFinished(game);
     }
 
-    public static IDictionary<Type, IPatch> ActivePatches
+    public static readonly IDictionary<Type, IPatch> ActivePatches
       = new Dictionary<Type, IPatch>();
 
     private static void ApplyPatches(Game game) {
@@ -208,7 +204,7 @@ namespace CommunityPatch {
           ActivePatches[patch.GetType()] = patch;
 
         ShowMessage($"{(patchApplied ? "Applied" : "Skipped")} Patch: {patch.GetType().Name}");
-    }
+      }
     }
 
     private static LinkedList<IPatch> _patches;
