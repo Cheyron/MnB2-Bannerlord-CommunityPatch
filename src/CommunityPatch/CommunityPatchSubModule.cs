@@ -27,7 +27,7 @@ namespace CommunityPatch {
     internal static readonly LinkedList<Exception> RecordedUnhandledExceptions
       = new LinkedList<Exception>();
 
-    internal static readonly OptionsStore Options = new OptionsFile(nameof(CommunityPatch) + ".txt");
+    internal static readonly OptionsStore Options = new CommunityPatchOptionsFile(nameof(CommunityPatch) + ".txt");
 
     [PublicAPI]
     internal static CampaignGameStarter CampaignGameStarter;
@@ -74,6 +74,8 @@ namespace CommunityPatch {
     }
 
     protected override void OnSubModuleLoad() {
+      Harmony.PatchAll();
+
       var module = Module.CurrentModule;
       module.AddInitialStateOption(new InitialStateOption(
         "ModOptions",
@@ -82,6 +84,7 @@ namespace CommunityPatch {
         ShowModOptions,
         false
       ));
+
       base.OnSubModuleLoad();
     }
 
