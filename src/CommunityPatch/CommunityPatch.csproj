@@ -31,6 +31,7 @@
         </Reference>
         <Reference Include="..\..\..\Native\bin\Win64_Shipping_Client\*.dll">
             <HintPath>%(Identity)</HintPath>
+            <Private>False</Private>
         </Reference>
         <Reference Include="$(PkgLib_Harmony)\lib\net48\0Harmony.dll">
             <HintPath>%(Identity)</HintPath>
